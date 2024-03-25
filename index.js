@@ -1,6 +1,6 @@
 //npm install prompt-sync - установливаю модуль prompt-sync с помощью npm в терминале vs code
-const prompt = require('prompt-sync')(); //импортирую и использую модуль
 
+const prompt = require('prompt-sync')(); //импортирую и использую модуль
 const transactions_import = require('./transactions.json');
 
 //В каждую транзакцию добавляю метод string()
@@ -25,39 +25,24 @@ class TransactionAnalyzer{
     addTransaction(){
         /**
          * Шаблон транзакции
+         * @typedef {Object} transaction
+         * @property {string} transaction_id - Уникальный идентификатор транзакции
+         * @property {string} transaction_date - Дата транзакции в формате "YYYY-MM-DD"
+         * @property {number} transaction_amount - Сумма транзакции
+         * @property {string} transaction_type - Тип транзакции, например, "debit" или "credit"
+         * @property {string} transaction_description - Описание транзакции
+         * @property {string} merchant_name - Название магазина или торговой точки, где была совершена транзакция
+         * @property {string} card_type - Тип используемой карты, например, "Visa" или "MasterCard"
+         * @property {function(): string} string - Метод, возвращающий строковое представление объекта транзакции в формате JSON
          */
         const transaction = {
-            /**
-             * @param {string} transaction_id - Уникальный идентификатор транзакции
-             */
             transaction_id: "1",
-            /**
-             * @param {string} transaction_date - Дата транзакции в формате "YYYY-MM-DD"
-             */
             transaction_date: "2019-01-01",
-            /**
-             * @param{number} transaction_amount - Сумма транзакции
-             */
             transaction_amount: 100.00,
-            /**
-             * @param {string} transaction_type - Тип транзакции, например, "debit" или "credit"
-             */
             transaction_type: "debit",
-            /**
-             * @param {string} transaction_description - Описание транзакции
-             */
             transaction_description: "Payment for groceries",
-            /**
-             * @param {string} merchant_name - Название магазина или торговой точки, где была совершена транзакция
-             */
             merchant_name: "SuperMart",
-            /**
-             * @param {string} card_type - Тип используемой карты, например, "Visa" или "MasterCard"
-             */
             card_type: "Visa",
-            /**
-             * @param {function(): string} string - Метод, возвращающий строковое представление объекта транзакции в формате JSON
-             */
             string() { //[extra]
                 return JSON.stringify(this)
             },
@@ -75,13 +60,14 @@ class TransactionAnalyzer{
     }
     /**
     * Возращает список всех транзакций
+    * @returns {Array<object>} Уникальные типы транзакций.
     */
     getAllTransaction(){
         return this.transactions;
     }
     /**
     * Возвращает массив всевозможных типов транзакций (например, ['debit', 'credit']).
-    * @param {} set_types - массив всевозможных типов транзакций
+    * @returns {Set<string>} Уникальные типы транзакций.
     */
     getUniqueTransactionType(){
         const set_types = new Set();
@@ -90,7 +76,10 @@ class TransactionAnalyzer{
         }
     return set_types;
     }
-
+    /**
+     * Вычисляет общую сумму всех транзакций.
+     * @returns {number} Общая сумма всех транзакций.
+     */
     calculateTotalAmount(){
         let total_amount = 0;
         for(const each_transaction of this.transactions){
@@ -98,7 +87,14 @@ class TransactionAnalyzer{
         }
         return total_amount;
     }
-
+    /**
+     * Вычисляет общую сумму транзакций за указанный год, месяц и день.
+     * Параметры year, month и day являются необязательными.
+     * @param {string} day - день
+     * @param {string} month - месяц 
+     * @param {string} year - год
+     * @returns {number} Общая сумма всех транзакций.
+     */
     calculateTotalAmountByDate(year, month, day){
         let date_split = [];
         let total_amount = 0;
@@ -111,7 +107,11 @@ class TransactionAnalyzer{
         }
         return total_amount;
     }
-
+    /**
+     * Возвращает транзакции указанного типа (debit или credit).
+     * @param {string} type - тип транзакции
+     * @returns {Array} - транзакции указанного типа
+     */
     getTransactionByType(type){
         let transactions_by_types = [];
         for(const each_transaction of this.transactions){
@@ -122,6 +122,12 @@ class TransactionAnalyzer{
         return transactions_by_types;
     }
 
+    /**
+     * Возвращает транзакции, проведенные в указанном диапазоне дат от startDate до endDate
+     * @param {string} startDate - в формате yyyy-mm-dd
+     * @param {string} endDate - в формате yyyy-mm-dd
+     * @returns {Array} - транзакции, проведенные в указанном диапазоне
+     */
     getTransactionsInDateRange(startDate, endDate){
         let transactions_in_date_range = [];
         for(const each_transaction of this.transactions){
@@ -132,6 +138,11 @@ class TransactionAnalyzer{
         return transactions_in_date_range;
     }
 
+    /**
+     * Возвращает транзакции, совершенные с указанным торговым местом или компанией
+     * @param {string} merchantName - торговое место или компания
+     * @returns {Array} - транзакции, совершенные с указанным торговым местом или компанией.
+     */
     getTransactionsByMerchant(merchantName){
         let transactions_by_merch = [];
         for(const each_transaction of this.transactions){
@@ -141,7 +152,11 @@ class TransactionAnalyzer{
         }
         return transactions_by_merch;
     }
-    
+
+    /**
+     * Возвращает среднее значение транзакций.
+     * @returns {number} - среднее значение транзакций.
+     */
     calculateAverageTransactionAmount(){
         let amount = transactions.length;
         let total_amount = 0;
@@ -152,6 +167,12 @@ class TransactionAnalyzer{
         return average_amount;
     }
 
+    /**
+     * Возвращает транзакции с суммой в заданном диапазоне от minAmount до maxAmount.
+     * @param {number} maxAmount - максимальное значение
+     * @param {number} minAmount - минимальное значение
+     * @returns {number} - среднее значение транзакций.
+     */
     getTransactionsByAmountRange(minAmount, maxAmount){
         let transactions_by_amount_range = [];
         for(const each_transaction of this.transactions){
@@ -162,6 +183,10 @@ class TransactionAnalyzer{
         return transactions_by_amount_range;
     }
 
+    /**
+     * Вычисляет общую сумму дебетовых транзакций.
+     * @returns {number} - сумма дебетовых транзакций.
+     */
     calculateTotalDebitAmount(){
         let total_amount = 0;
         for(const each_transaction of this.transactions){
@@ -172,6 +197,10 @@ class TransactionAnalyzer{
         return total_amount;
     }
 
+    /**
+     * Возвращает месяц, в котором было больше всего транзакций.
+     * @returns {string} - месяц, в котором было больше всего транзакций.
+     */
     findMostTransactionsMonth(){
         const set_months = new Set(); // Записываю множество всех возможных месяцев(учитывая год)
         for(const each_transaction of this.transactions) {
@@ -210,6 +239,10 @@ class TransactionAnalyzer{
         return max_month;
     }
 
+    /**
+     * Возвращает месяц, в котором было больше дебетовых транзакций.
+     * @returns {string} - месяц, в котором было больше дебетовых транзакций.
+     */
     findMostDebitTransactionMonth(){
         const set_months = new Set(); // Записываю множество всех возможных месяцев(учитывая год)
         for(const each_transaction of this.transactions) {
@@ -247,7 +280,13 @@ class TransactionAnalyzer{
         }
         return max_month;
     }
-
+    /**
+     * Возвращает каких транзакций больше всего.
+     * Возвращает debit, если дебетовых.
+     * Возвращает credit, если кредитовых.
+     * Возвращает equal, если количество равно.
+     * @returns {string} - каких транзакций больше всего.
+     */
     mostTransactionTypes(){
         let debit_amount = 0;
         let credit_amount = 0;
@@ -269,7 +308,11 @@ class TransactionAnalyzer{
             return 'equal';
         }
     }
-
+    /**
+     * Возвращает транзакции, совершенные до указанной даты.
+     * @param {string} date - в формате yyyy-mm-dd
+     * @returns {Array} - транзакции, совершенные до указанной даты.
+     */
     getTransactionsBeforeDate(date){
         let transactions_before_date = [];
         for(const each_transaction of this.transactions){
@@ -279,7 +322,11 @@ class TransactionAnalyzer{
         }
         return transactions_before_date;
     }
-
+     /**
+     * Возвращает транзакцию по ее уникальному идентификатору.
+     * @param {string} id - уникальный идентификатор
+     * @returns {object} - транзакция по ее уникальному идентификатору.
+     */
     findTransactionById(id){
         for(const each_transaction of this.transactions){
             if(each_transaction.transaction_id === id){
@@ -287,7 +334,10 @@ class TransactionAnalyzer{
             }
         }
     }
-
+     /**
+     * Возвращает новый массив, содержащий только описания транзакций.
+     * @returns {Array} - массив, содержащий только описания транзакций
+     */
     mapTransactionDescriptions(){
         let transactions_descriptions = [];
         for(const each_transaction of this.transactions){
@@ -308,7 +358,7 @@ const transactionAnalyzer_1 = new TransactionAnalyzer(transactions_import);
 //console.log(transactionAnalyzer_1.transactions[transactions.length-1]);
 //console.log(transactionAnalyzer_1.transactions[transactions.length-1].string());
 
-//console.log(transactionAnalyzer_1.getAllTransaction());
+console.log(transactionAnalyzer_1.getAllTransaction());
 //console.log(transactionAnalyzer_1.getUniqueTransactionType());
 //console.log(transactionAnalyzer_1.calculateTotalAmount());
 //console.log(transactionAnalyzer_1.calculateTotalAmountByDate(year, month, day));
