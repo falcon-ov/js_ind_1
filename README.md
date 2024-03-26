@@ -19,7 +19,7 @@
 
 - `transactions.json`: Файл, содержащий транзакции, указанные для анализа.
 - `index.js` : Основной файл, содержащий логику проекта.
-- 'package.json', 'package-lock.json', 'node_modules': Два файла и папка необходимые для работы prompt().
+- `package.json`, `package-lock.json`, `node_modules`: Два файла и папка необходимые для работы prompt().
 
 ### Класс `TransactionAnalyzer`
 Этот класс отвечает за обработку и анализ транзакций.
