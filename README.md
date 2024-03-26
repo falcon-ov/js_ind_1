@@ -56,10 +56,10 @@
 Ответы на вопросы, связанные с лабораторной работой.
 
 ## Список использованных источников
-https://github.com/MSU-Courses/javascript_typescript/tree/main/docs
-https://developer.mozilla.org/ru/docs/Web/JavaScript
-https://copilot.microsoft.com/
-https://chat.openai.com/
+- https://github.com/MSU-Courses/javascript_typescript/tree/main/docs
+- https://developer.mozilla.org/ru/docs/Web/JavaScript
+- https://copilot.microsoft.com/
+- https://chat.openai.com/
 
 ## Дополнительные важные аспекты
 ...
