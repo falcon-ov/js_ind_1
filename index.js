@@ -221,7 +221,7 @@ class TransactionAnalyzer{
                     }
                 })
                 let total_amount_per_month = 0; // Вычисляю кол-во транзакций за месяц
-                all_transactions_by_month.forEach(() => total_amount_per_month++);
+                total_amount_per_month = all_transactions_by_month.length;
                 map_months_with_amount.set(month , total_amount_per_month);
                 console.log(map_months_with_amount);
         }
@@ -263,7 +263,7 @@ class TransactionAnalyzer{
                     }
                 })
                 let total_amount_per_month = 0; // Вычисляю кол-во транзакций за месяц
-                all_transactions_by_month.forEach(() => total_amount_per_month++);
+                total_amount_per_month = all_transactions_by_month.length;
                 map_months_with_amount.set(month , total_amount_per_month);
                 console.log(map_months_with_amount);
         }
@@ -358,7 +358,7 @@ const transactionAnalyzer_1 = new TransactionAnalyzer(transactions_import);
 //console.log(transactionAnalyzer_1.transactions[transactions.length-1]);
 //console.log(transactionAnalyzer_1.transactions[transactions.length-1].string());
 
-console.log(transactionAnalyzer_1.getAllTransaction());
+//console.log(transactionAnalyzer_1.getAllTransaction());
 //console.log(transactionAnalyzer_1.getUniqueTransactionType());
 //console.log(transactionAnalyzer_1.calculateTotalAmount());
 //console.log(transactionAnalyzer_1.calculateTotalAmountByDate(year, month, day));
@@ -371,7 +371,7 @@ console.log(transactionAnalyzer_1.getAllTransaction());
 //console.log(transactionAnalyzer_1.getTransactionsByAmountRange(minAmount, maxAmount));
 //console.log(transactionAnalyzer_1.calculateTotalDebitAmount());
 //console.log(transactionAnalyzer_1.findMostTransactionsMonth());
-//console.log(transactionAnalyzer_1.findMostDebitTransactionMonth());
+console.log(transactionAnalyzer_1.findMostDebitTransactionMonth());
 
 //console.log(transactionAnalyzer_1.mostTransactionTypes());
 //console.log(transactionAnalyzer_1.getTransactionsBeforeDate(date));
