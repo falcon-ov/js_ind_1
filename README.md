@@ -56,7 +56,10 @@
 Ответы на вопросы, связанные с лабораторной работой.
 
 ## Список использованных источников
-[Github курса js]https://github.com/MSU-Courses/javascript_typescript/tree/main/docs
+https://github.com/MSU-Courses/javascript_typescript/tree/main/docs
+https://developer.mozilla.org/ru/docs/Web/JavaScript
+https://copilot.microsoft.com/
+https://chat.openai.com/
 
 ## Дополнительные важные аспекты
-Любая дополнительная информация, которая может быть полезна при работе с проектом.
+...
